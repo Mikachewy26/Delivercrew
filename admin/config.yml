@@ -1,0 +1,509 @@
+backend:
+  name: github
+  repo: Mikachewy26/Delivercrew
+  branch: main
+media_folder: assets/uploads
+public_folder: /assets/uploads
+collections:
+- name: website
+  label: Website content
+  files:
+  - label: DeliverCrew pages and prices
+    name: content
+    file: data/content.json
+    format: json
+    fields:
+    - label: Home
+      name: home
+      widget: object
+      collapsed: true
+      fields:
+      - label: Eyebrow
+        name: eyebrow
+        widget: string
+        required: true
+      - label: Title
+        name: title
+        widget: string
+        required: true
+      - label: Intro
+        name: intro
+        widget: text
+        required: true
+      - label: Detail
+        name: detail
+        widget: text
+        required: true
+    - label: Leaflet distribution
+      name: distribution
+      widget: object
+      collapsed: true
+      fields:
+      - label: Eyebrow
+        name: eyebrow
+        widget: string
+        required: true
+      - label: Title
+        name: title
+        widget: string
+        required: true
+      - label: Intro
+        name: intro
+        widget: string
+        required: true
+      - label: Detail
+        name: detail
+        widget: text
+        required: true
+    - label: Design & print
+      name: print
+      widget: object
+      collapsed: true
+      fields:
+      - label: Eyebrow
+        name: eyebrow
+        widget: string
+        required: true
+      - label: Title
+        name: title
+        widget: string
+        required: true
+      - label: Intro
+        name: intro
+        widget: string
+        required: true
+      - label: Detail
+        name: detail
+        widget: text
+        required: true
+    - label: Branding & signage
+      name: branding
+      widget: object
+      collapsed: true
+      fields:
+      - label: Eyebrow
+        name: eyebrow
+        widget: string
+        required: true
+      - label: Title
+        name: title
+        widget: string
+        required: true
+      - label: Intro
+        name: intro
+        widget: string
+        required: true
+      - label: Detail
+        name: detail
+        widget: text
+        required: true
+    - label: Websites & marketing
+      name: websites
+      widget: object
+      collapsed: true
+      fields:
+      - label: Eyebrow
+        name: eyebrow
+        widget: string
+        required: true
+      - label: Title
+        name: title
+        widget: string
+        required: true
+      - label: Intro
+        name: intro
+        widget: text
+        required: true
+      - label: Detail
+        name: detail
+        widget: text
+        required: true
+    - label: GPS tracking
+      name: gps
+      widget: object
+      collapsed: true
+      fields:
+      - label: Eyebrow
+        name: eyebrow
+        widget: string
+        required: true
+      - label: Title
+        name: title
+        widget: string
+        required: true
+      - label: Intro
+        name: intro
+        widget: text
+        required: true
+      - label: Detail
+        name: detail
+        widget: text
+        required: true
+    - label: Contact & footer
+      name: shared
+      widget: object
+      collapsed: true
+      fields:
+      - label: Contact Title
+        name: contact_title
+        widget: string
+        required: true
+      - label: Contact Intro
+        name: contact_intro
+        widget: text
+        required: true
+      - label: Contact Status
+        name: contact_status
+        widget: string
+        required: true
+      - label: Email
+        name: email
+        widget: string
+        required: false
+      - label: Phone
+        name: phone
+        widget: string
+        required: false
+      - label: Footer
+        name: footer
+        widget: string
+        required: true
+    - label: Distribution prices
+      name: pricing
+      widget: object
+      collapsed: true
+      fields:
+      - label: Shared 1000
+        name: shared_1000
+        widget: string
+        required: true
+      - label: Solus 1000
+        name: solus_1000
+        widget: string
+        required: true
+      - label: Shared 2500
+        name: shared_2500
+        widget: string
+        required: true
+      - label: Solus 2500
+        name: solus_2500
+        widget: string
+        required: true
+      - label: Shared 5000
+        name: shared_5000
+        widget: string
+        required: true
+      - label: Solus 5000
+        name: solus_5000
+        widget: string
+        required: true
+      - label: Shared 10000
+        name: shared_10000
+        widget: string
+        required: true
+      - label: Solus 10000
+        name: solus_10000
+        widget: string
+        required: true
+      - label: Shared 20000
+        name: shared_20000
+        widget: string
+        required: true
+      - label: Solus 20000
+        name: solus_20000
+        widget: string
+        required: true
+    - label: Home page sections
+      name: index_extras
+      widget: object
+      collapsed: true
+      fields:
+      - label: Button 1
+        name: button_01
+        widget: string
+        required: true
+      - label: Button 2
+        name: button_02
+        widget: string
+        required: true
+      - label: Paragraph 1
+        name: text_01
+        widget: text
+        required: true
+      - label: Section heading 1
+        name: heading_01
+        widget: string
+        required: true
+      - label: Section heading 2
+        name: heading_02
+        widget: string
+        required: true
+      - label: Paragraph 2
+        name: text_02
+        widget: text
+        required: true
+      - label: Section heading 3
+        name: heading_03
+        widget: string
+        required: true
+      - label: Paragraph 3
+        name: text_03
+        widget: text
+        required: true
+      - label: Section heading 4
+        name: heading_04
+        widget: string
+        required: true
+      - label: Paragraph 4
+        name: text_04
+        widget: text
+        required: true
+      - label: Section heading 5
+        name: heading_05
+        widget: string
+        required: true
+      - label: Paragraph 5
+        name: text_05
+        widget: text
+        required: true
+      - label: Paragraph 6
+        name: text_06
+        widget: text
+        required: true
+      - label: Section heading 6
+        name: heading_06
+        widget: string
+        required: true
+      - label: Paragraph 7
+        name: text_07
+        widget: text
+        required: true
+      - label: Paragraph 8
+        name: text_08
+        widget: text
+        required: true
+      - label: Paragraph 9
+        name: text_09
+        widget: text
+        required: true
+      - label: Section heading 7
+        name: heading_07
+        widget: string
+        required: true
+      - label: Section heading 8
+        name: heading_08
+        widget: string
+        required: true
+      - label: Paragraph 10
+        name: text_10
+        widget: text
+        required: true
+      - label: Section heading 9
+        name: heading_09
+        widget: string
+        required: true
+      - label: Paragraph 11
+        name: text_11
+        widget: text
+        required: true
+      - label: Section heading 10
+        name: heading_10
+        widget: string
+        required: true
+      - label: Paragraph 12
+        name: text_12
+        widget: text
+        required: true
+      - label: Paragraph 13
+        name: text_13
+        widget: text
+        required: true
+      - label: Section heading 11
+        name: heading_11
+        widget: string
+        required: true
+      - label: Paragraph 14
+        name: text_14
+        widget: text
+        required: true
+      - label: Section heading 12
+        name: heading_12
+        widget: string
+        required: true
+      - label: Paragraph 15
+        name: text_15
+        widget: text
+        required: true
+      - label: Section heading 13
+        name: heading_13
+        widget: string
+        required: true
+      - label: Paragraph 16
+        name: text_16
+        widget: text
+        required: true
+      - label: Paragraph 17
+        name: text_17
+        widget: text
+        required: true
+      - label: Section heading 14
+        name: heading_14
+        widget: string
+        required: true
+      - label: Paragraph 18
+        name: text_18
+        widget: text
+        required: true
+      - label: Button 3
+        name: button_03
+        widget: string
+        required: true
+    - label: Distribution page sections
+      name: distribution_extras
+      widget: object
+      collapsed: true
+      fields:
+      - label: Button 1
+        name: button_01
+        widget: string
+        required: true
+      - label: Button 2
+        name: button_02
+        widget: string
+        required: true
+      - label: Paragraph 1
+        name: text_01
+        widget: text
+        required: true
+      - label: Section heading 1
+        name: heading_01
+        widget: string
+        required: true
+      - label: Paragraph 2
+        name: text_02
+        widget: text
+        required: true
+      - label: Section heading 2
+        name: heading_02
+        widget: string
+        required: true
+      - label: Paragraph 3
+        name: text_03
+        widget: text
+        required: true
+      - label: Section heading 3
+        name: heading_03
+        widget: string
+        required: true
+      - label: Paragraph 4
+        name: text_04
+        widget: text
+        required: true
+      - label: Section heading 4
+        name: heading_04
+        widget: string
+        required: true
+      - label: Paragraph 5
+        name: text_05
+        widget: text
+        required: true
+      - label: Paragraph 6
+        name: text_06
+        widget: text
+        required: true
+      - label: Section heading 5
+        name: heading_05
+        widget: string
+        required: true
+      - label: Paragraph 7
+        name: text_07
+        widget: text
+        required: true
+      - label: Button 3
+        name: button_03
+        widget: string
+        required: true
+    - label: Design & print page sections
+      name: print_extras
+      widget: object
+      collapsed: true
+      fields:
+      - label: Button 1
+        name: button_01
+        widget: string
+        required: true
+      - label: Button 2
+        name: button_02
+        widget: string
+        required: true
+      - label: Paragraph 1
+        name: text_01
+        widget: text
+        required: true
+      - label: Section heading 1
+        name: heading_01
+        widget: string
+        required: true
+    - label: Branding page sections
+      name: branding_extras
+      widget: object
+      collapsed: true
+      fields:
+      - label: Button 1
+        name: button_01
+        widget: string
+        required: true
+      - label: Button 2
+        name: button_02
+        widget: string
+        required: true
+      - label: Paragraph 1
+        name: text_01
+        widget: text
+        required: true
+      - label: Section heading 1
+        name: heading_01
+        widget: string
+        required: true
+    - label: Websites page sections
+      name: websites_extras
+      widget: object
+      collapsed: true
+      fields:
+      - label: Button 1
+        name: button_01
+        widget: string
+        required: true
+      - label: Button 2
+        name: button_02
+        widget: string
+        required: true
+      - label: Paragraph 1
+        name: text_01
+        widget: text
+        required: true
+      - label: Section heading 1
+        name: heading_01
+        widget: string
+        required: true
+    - label: GPS page sections
+      name: gps_extras
+      widget: object
+      collapsed: true
+      fields:
+      - label: Button 1
+        name: button_01
+        widget: string
+        required: true
+      - label: Button 2
+        name: button_02
+        widget: string
+        required: true
+      - label: Paragraph 1
+        name: text_01
+        widget: text
+        required: true
+      - label: Section heading 1
+        name: heading_01
+        widget: string
+        required: true
