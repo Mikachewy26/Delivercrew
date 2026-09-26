@@ -54,5 +54,83 @@
     "solus_10000": "£1,150",
     "shared_20000": "£1,200",
     "solus_20000": "£2,300"
+  },
+  "index_extras": {
+    "button_01": "Discuss a campaign",
+    "button_02": "Explore services",
+    "text_01": "01 / WHAT WE DO",
+    "heading_01": "One crew. More ways to get noticed.",
+    "heading_02": "Leaflet distribution",
+    "text_02": "Plan a local leaflet drop around the areas that matter to your business.",
+    "heading_03": "Design & print",
+    "text_03": "Clear, memorable leaflets and printed materials for local campaigns.",
+    "heading_04": "Branding & signage",
+    "text_04": "A consistent look across your logo, signage, banners, vehicle graphics and workwear.",
+    "heading_05": "Websites & marketing",
+    "text_05": "Websites and marketing materials that feel like your business and speak to local customers.",
+    "text_06": "02 / CLOSE TO HOME",
+    "heading_06": "Local knowledge. Wider reach.",
+    "text_07": "Based in Brighton, with campaigns planned across Sussex. From busy town streets to village communities, we can help shape a drop around your audience.",
+    "text_08": "Coverage, timescales and pricing agreed for each campaign.",
+    "text_09": "03 / FROM IDEA TO LETTERBOX",
+    "heading_07": "Let’s get your message moving.",
+    "heading_08": "Tell us the plan",
+    "text_10": "Your business, audience and the places you want to reach.",
+    "heading_09": "Bring it together",
+    "text_11": "Agree the artwork, print quantity, area and campaign quote.",
+    "heading_10": "Get out there",
+    "text_12": "Your campaign moves into the agreed delivery schedule.",
+    "text_13": "DISTRIBUTION PRICES",
+    "heading_11": "A clear price for your next campaign.",
+    "text_14": "Delivery prices for standard leaflets in compact residential areas. Design and printing are quoted separately.",
+    "heading_12": "Shared delivery",
+    "text_15": "Your leaflet is delivered alongside up to two other non-competing businesses. Available when suitable campaigns cover the same area.",
+    "heading_13": "Solus delivery",
+    "text_16": "Only your leaflet is delivered on that round.",
+    "text_17": "Includes area planning, an agreed delivery schedule and a completion report. Rural routes are individually quoted.",
+    "heading_14": "Planning a larger campaign?",
+    "text_18": "For 25,000+ leaflets, contact us for a tailored package based on your delivery areas, quantities and frequency. Design and printing can also be included.",
+    "button_03": "Discuss your campaign"
+  },
+  "distribution_extras": {
+    "button_01": "Discuss a campaign",
+    "button_02": "Explore services",
+    "text_01": "HOW WE CAN HELP",
+    "heading_01": "Built around your campaign.",
+    "text_02": "DISTRIBUTION PRICES",
+    "heading_02": "A clear price for your next campaign.",
+    "text_03": "Delivery prices for standard leaflets in compact residential areas. Design and printing are quoted separately.",
+    "heading_03": "Shared delivery",
+    "text_04": "Your leaflet is delivered alongside up to two other non-competing businesses. Available when suitable campaigns cover the same area.",
+    "heading_04": "Solus delivery",
+    "text_05": "Only your leaflet is delivered on that round.",
+    "text_06": "Includes area planning, an agreed delivery schedule and a completion report. Rural routes are individually quoted.",
+    "heading_05": "Planning a larger campaign?",
+    "text_07": "For 25,000+ leaflets, contact us for a tailored package based on your delivery areas, quantities and frequency. Design and printing can also be included.",
+    "button_03": "Discuss your campaign"
+  },
+  "print_extras": {
+    "button_01": "Discuss a campaign",
+    "button_02": "Explore services",
+    "text_01": "HOW WE CAN HELP",
+    "heading_01": "Built around your campaign."
+  },
+  "branding_extras": {
+    "button_01": "Discuss a campaign",
+    "button_02": "Explore services",
+    "text_01": "HOW WE CAN HELP",
+    "heading_01": "Built around your campaign."
+  },
+  "websites_extras": {
+    "button_01": "Discuss a campaign",
+    "button_02": "Explore services",
+    "text_01": "HOW WE CAN HELP",
+    "heading_01": "Built around your campaign."
+  },
+  "gps_extras": {
+    "button_01": "Discuss a campaign",
+    "button_02": "Explore services",
+    "text_01": "HOW WE CAN HELP",
+    "heading_01": "Built around your campaign."
   }
 }
