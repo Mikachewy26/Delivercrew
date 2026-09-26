@@ -1,0 +1,4 @@
+Require all denied
+<Files "content.json">
+Require all granted
+</Files>

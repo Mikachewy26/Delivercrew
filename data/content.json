@@ -1,0 +1,58 @@
+{
+  "home": {
+    "eyebrow": "BRIGHTON & SUSSEX · LOCAL BUSINESS, BIG IDEAS",
+    "title": "Good brands. Great print. Right doorstep.",
+    "intro": "From your first design to the final letterbox, we help you reach the neighbourhoods that matter to your business.",
+    "detail": "Choose the support you need, whether your leaflets are ready to go or your brand is starting from scratch."
+  },
+  "distribution": {
+    "eyebrow": "01 / LEAFLET DISTRIBUTION",
+    "title": "Put your message through the right doors.",
+    "intro": "Plan a local leaflet drop around the areas that matter to your business.",
+    "detail": "Tell us your target neighbourhoods, approximate quantity and preferred dates. We will agree the delivery area, schedule and a campaign quote with you before work begins."
+  },
+  "print": {
+    "eyebrow": "02 / DESIGN & PRINT",
+    "title": "Make every leaflet count.",
+    "intro": "Clear, memorable leaflets and printed materials for local campaigns.",
+    "detail": "We can work with artwork you already have or help shape a new design. Print specifications and quantities are agreed with you before ordering."
+  },
+  "branding": {
+    "eyebrow": "03 / BRANDING & SIGNAGE",
+    "title": "Bring your business together.",
+    "intro": "A consistent look across your logo, signage, banners, vehicle graphics and workwear.",
+    "detail": "Tell us what you need and where it will be used. We can put together a tailored scope and quote for the design and production work."
+  },
+  "websites": {
+    "eyebrow": "04 / WEBSITES & MARKETING",
+    "title": "Give customers somewhere to find you.",
+    "intro": "Websites and marketing materials that feel like your business and speak to local customers.",
+    "detail": "From a clear web presence to campaign support, we can discuss the right mix for your goals and budget."
+  },
+  "gps": {
+    "eyebrow": "05 / GPS ROUTE REPORTING",
+    "title": "See where your campaign travelled.",
+    "intro": "GPS route records can help you review the streets covered during an agreed leaflet distribution campaign.",
+    "detail": "Where agreed for your campaign, we can provide a route report or customer viewing link after delivery. The tracking method, availability and timing will be confirmed in your quote. GPS shows a route travelled; it does not verify delivery to every individual letterbox."
+  },
+  "shared": {
+    "contact_title": "Ready to reach your next customers?",
+    "contact_intro": "Tell us your area, approximate leaflet quantity and preferred dates. We can also discuss design and print.",
+    "contact_status": "Enquiries opening soon. Contact details will be added here before launch.",
+    "email": "",
+    "phone": "",
+    "footer": "Leaflet distribution. Creative thinking. Local reach."
+  },
+  "pricing": {
+    "shared_1000": "£65",
+    "solus_1000": "£130",
+    "shared_2500": "£160",
+    "solus_2500": "£315",
+    "shared_5000": "£310",
+    "solus_5000": "£600",
+    "shared_10000": "£600",
+    "solus_10000": "£1,150",
+    "shared_20000": "£1,200",
+    "solus_20000": "£2,300"
+  }
+}
