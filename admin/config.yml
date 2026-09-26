@@ -2,6 +2,7 @@ backend:
   name: github
   repo: Mikachewy26/Delivercrew
   branch: main
+  auth_scope: public_repo
 media_folder: assets/uploads
 public_folder: /assets/uploads
 collections:
