@@ -1,39 +1,9 @@
 {
-  "home": {
-    "eyebrow": "BRIGHTON & SUSSEX · LOCAL BUSINESS, BIG IDEAS",
-    "title": "Good brands. Great print. Right doorstep.",
-    "intro": "From your first design to the final letterbox, we help you reach the neighbourhoods that matter to your business.",
-    "detail": "Choose the support you need, whether your leaflets are ready to go or your brand is starting from scratch."
-  },
   "distribution": {
     "eyebrow": "01 / LEAFLET DISTRIBUTION",
     "title": "Put your message through the right doors.",
     "intro": "Plan a local leaflet drop around the areas that matter to your business.",
     "detail": "Tell us your target neighbourhoods, approximate quantity and preferred dates. We will agree the delivery area, schedule and a campaign quote with you before work begins."
-  },
-  "print": {
-    "eyebrow": "02 / DESIGN & PRINT",
-    "title": "Make every leaflet count.",
-    "intro": "Clear, memorable leaflets and printed materials for local campaigns.",
-    "detail": "We can work with artwork you already have or help shape a new design. Print specifications and quantities are agreed with you before ordering."
-  },
-  "branding": {
-    "eyebrow": "03 / BRANDING & SIGNAGE",
-    "title": "Bring your business together.",
-    "intro": "A consistent look across your logo, signage, banners, vehicle graphics and workwear.",
-    "detail": "Tell us what you need and where it will be used. We can put together a tailored scope and quote for the design and production work."
-  },
-  "websites": {
-    "eyebrow": "04 / WEBSITES & MARKETING",
-    "title": "Give customers somewhere to find you.",
-    "intro": "Websites and marketing materials that feel like your business and speak to local customers.",
-    "detail": "From a clear web presence to campaign support, we can discuss the right mix for your goals and budget."
-  },
-  "gps": {
-    "eyebrow": "05 / GPS ROUTE REPORTING",
-    "title": "See where your campaign travelled.",
-    "intro": "GPS route records can help you review the streets covered during an agreed leaflet distribution campaign.",
-    "detail": "Where agreed for your campaign, we can provide a route report or customer viewing link after delivery. The tracking method, availability and timing will be confirmed in your quote. GPS shows a route travelled; it does not verify delivery to every individual letterbox."
   },
   "shared": {
     "contact_title": "Ready to reach your next customers?",
@@ -44,76 +14,16 @@
     "footer": "Leaflet distribution. Creative thinking. Local reach."
   },
   "pricing": {
-    "shared_1000": "£65",
+    "solus_10000": "£1,150",
+    "solus_20000": "£2,300",
+    "solus_5000": "£600",
     "solus_1000": "£130",
-    "shared_2500": "£160",
     "solus_2500": "£315",
     "shared_5000": "£310",
-    "solus_5000": "£600",
     "shared_10000": "£600",
-    "solus_10000": "£1,150",
     "shared_20000": "£1,200",
-    "solus_20000": "£2,300"
-  },
-  "index_extras": {
-    "button_01": "Discuss a campaign",
-    "button_02": "Explore services",
-    "text_01": "01 / WHAT WE DO",
-    "heading_01": "One crew. More ways to get noticed.",
-    "heading_02": "Leaflet distribution",
-    "text_02": "Plan a local leaflet drop around the areas that matter to your business.",
-    "heading_03": "Design & print",
-    "text_03": "Clear, memorable leaflets and printed materials for local campaigns.",
-    "heading_04": "Branding & signage",
-    "text_04": "A consistent look across your logo, signage, banners, vehicle graphics and workwear.",
-    "heading_05": "Websites & marketing",
-    "text_05": "Websites and marketing materials that feel like your business and speak to local customers.",
-    "text_06": "02 / CLOSE TO HOME",
-    "heading_06": "Local knowledge. Wider reach.",
-    "text_07": "Based in Brighton, with campaigns planned across Sussex. From busy town streets to village communities, we can help shape a drop around your audience.",
-    "text_08": "Coverage, timescales and pricing agreed for each campaign.",
-    "text_09": "03 / FROM IDEA TO LETTERBOX",
-    "heading_07": "Let’s get your message moving.",
-    "heading_08": "Tell us the plan",
-    "text_10": "Your business, audience and the places you want to reach.",
-    "heading_09": "Bring it together",
-    "text_11": "Agree the artwork, print quantity, area and campaign quote.",
-    "heading_10": "Get out there",
-    "text_12": "Your campaign moves into the agreed delivery schedule.",
-    "text_13": "DISTRIBUTION PRICES",
-    "heading_11": "A clear price for your next campaign.",
-    "text_14": "Delivery prices for standard leaflets in compact residential areas. Design and printing are quoted separately.",
-    "heading_12": "Shared delivery",
-    "text_15": "Your leaflet is delivered alongside up to two other non-competing businesses. Available when suitable campaigns cover the same area.",
-    "heading_13": "Solus delivery",
-    "text_16": "Only your leaflet is delivered on that round.",
-    "text_17": "Includes area planning, an agreed delivery schedule and a completion report. Rural routes are individually quoted.",
-    "heading_14": "Planning a larger campaign?",
-    "text_18": "For 25,000+ leaflets, contact us for a tailored package based on your delivery areas, quantities and frequency. Design and printing can also be included.",
-    "button_03": "Discuss your campaign"
-  },
-  "distribution_extras": {
-    "button_01": "Discuss a campaign",
-    "button_02": "Explore services",
-    "text_01": "HOW WE CAN HELP",
-    "heading_01": "Built around your campaign.",
-    "text_02": "DISTRIBUTION PRICES",
-    "heading_02": "A clear price for your next campaign.",
-    "text_03": "Delivery prices for standard leaflets in compact residential areas. Design and printing are quoted separately.",
-    "heading_03": "Shared delivery",
-    "text_04": "Your leaflet is delivered alongside up to two other non-competing businesses. Available when suitable campaigns cover the same area.",
-    "heading_04": "Solus delivery",
-    "text_05": "Only your leaflet is delivered on that round.",
-    "text_06": "Includes area planning, an agreed delivery schedule and a completion report. Rural routes are individually quoted.",
-    "heading_05": "Planning a larger campaign?",
-    "text_07": "For 25,000+ leaflets, contact us for a tailored package based on your delivery areas, quantities and frequency. Design and printing can also be included.",
-    "button_03": "Discuss your campaign"
-  },
-  "print_extras": {
-    "button_01": "Discuss a campaign",
-    "button_02": "Explore services",
-    "text_01": "HOW WE CAN HELP",
-    "heading_01": "Built around your campaign."
+    "shared_1000": "£85",
+    "shared_2500": "£160"
   },
   "branding_extras": {
     "button_01": "Discuss a campaign",
@@ -121,16 +31,106 @@
     "text_01": "HOW WE CAN HELP",
     "heading_01": "Built around your campaign."
   },
+  "gps": {
+    "eyebrow": "05 / GPS ROUTE REPORTING",
+    "title": "See where your campaign travelled.",
+    "intro": "GPS route records can help you review the streets covered during an agreed leaflet distribution campaign.",
+    "detail": "Where agreed for your campaign, we can provide a route report or customer viewing link after delivery. The tracking method, availability and timing will be confirmed in your quote. GPS shows a route travelled; it does not verify delivery to every individual letterbox."
+  },
   "websites_extras": {
     "button_01": "Discuss a campaign",
     "button_02": "Explore services",
     "text_01": "HOW WE CAN HELP",
     "heading_01": "Built around your campaign."
   },
+  "print": {
+    "eyebrow": "02 / DESIGN & PRINT",
+    "title": "Make every leaflet count.",
+    "intro": "Clear, memorable leaflets and printed materials for local campaigns.",
+    "detail": "We can work with artwork you already have or help shape a new design. Print specifications and quantities are agreed with you before ordering."
+  },
+  "index_extras": {
+    "heading_03": "Design & print",
+    "heading_14": "Planning a larger campaign?",
+    "heading_04": "Branding & signage",
+    "heading_05": "Websites & marketing",
+    "heading_06": "Local knowledge. Wider reach.",
+    "heading_07": "Let’s get your message moving.",
+    "heading_08": "Tell us the plan",
+    "heading_09": "Bring it together",
+    "button_01": "Discuss a campaign",
+    "button_02": "Explore services",
+    "button_03": "Discuss your campaign",
+    "text_10": "Your business, audience and the places you want to reach.",
+    "text_11": "Agree the artwork, print quantity, area and campaign quote.",
+    "text_01": "01 / WHAT WE DO",
+    "text_12": "Your campaign moves into the agreed delivery schedule.",
+    "text_02": "Plan a local leaflet drop around the areas that matter to your business.",
+    "text_13": "DISTRIBUTION PRICES",
+    "text_03": "Clear, memorable leaflets and printed materials for local campaigns.",
+    "text_14": "Delivery prices for standard leaflets in compact residential areas. Design and printing are quoted separately.",
+    "text_04": "A consistent look across your logo, signage, banners, vehicle graphics and workwear.",
+    "text_15": "Your leaflet is delivered alongside up to two other non-competing businesses. Available when suitable campaigns cover the same area.",
+    "text_05": "Websites and marketing materials that feel like your business and speak to local customers.",
+    "text_16": "Only your leaflet is delivered on that round.",
+    "text_06": "02 / CLOSE TO HOME",
+    "text_17": "Includes area planning, an agreed delivery schedule and a completion report. Rural routes are individually quoted.",
+    "text_07": "Based in Brighton, with campaigns planned across Sussex. From busy town streets to village communities, we can help shape a drop around your audience.",
+    "text_18": "For 25,000+ leaflets, contact us for a tailored package based on your delivery areas, quantities and frequency. Design and printing can also be included.",
+    "text_08": "Coverage, timescales and pricing agreed for each campaign.",
+    "text_09": "03 / FROM IDEA TO LETTERBOX",
+    "heading_10": "Get out there",
+    "heading_11": "A clear price for your next campaign.",
+    "heading_01": "One crew. More ways to get noticed.",
+    "heading_12": "Shared delivery",
+    "heading_02": "Leaflet distribution",
+    "heading_13": "Solus delivery"
+  },
+  "print_extras": {
+    "button_01": "Discuss a campaign",
+    "button_02": "Explore services",
+    "text_01": "HOW WE CAN HELP",
+    "heading_01": "Built around your campaign."
+  },
+  "websites": {
+    "eyebrow": "04 / WEBSITES & MARKETING",
+    "title": "Give customers somewhere to find you.",
+    "intro": "Websites and marketing materials that feel like your business and speak to local customers.",
+    "detail": "From a clear web presence to campaign support, we can discuss the right mix for your goals and budget."
+  },
   "gps_extras": {
     "button_01": "Discuss a campaign",
     "button_02": "Explore services",
     "text_01": "HOW WE CAN HELP",
     "heading_01": "Built around your campaign."
+  },
+  "branding": {
+    "eyebrow": "03 / BRANDING & SIGNAGE",
+    "title": "Bring your business together.",
+    "intro": "A consistent look across your logo, signage, banners, vehicle graphics and workwear.",
+    "detail": "Tell us what you need and where it will be used. We can put together a tailored scope and quote for the design and production work."
+  },
+  "distribution_extras": {
+    "heading_03": "Shared delivery",
+    "heading_04": "Solus delivery",
+    "heading_05": "Planning a larger campaign?",
+    "button_01": "Discuss a campaign",
+    "button_02": "Explore services",
+    "button_03": "Discuss your campaign",
+    "text_01": "HOW WE CAN HELP",
+    "text_02": "DISTRIBUTION PRICES",
+    "text_03": "Delivery prices for standard leaflets in compact residential areas. Design and printing are quoted separately.",
+    "text_04": "Your leaflet is delivered alongside up to two other non-competing businesses. Available when suitable campaigns cover the same area.",
+    "text_05": "Only your leaflet is delivered on that round.",
+    "text_06": "Includes area planning, an agreed delivery schedule and a completion report. Rural routes are individually quoted.",
+    "text_07": "For 25,000+ leaflets, contact us for a tailored package based on your delivery areas, quantities and frequency. Design and printing can also be included.",
+    "heading_01": "Built around your campaign.",
+    "heading_02": "A clear price for your next campaign."
+  },
+  "home": {
+    "eyebrow": "BRIGHTON & SUSSEX · LOCAL BUSINESS, BIG IDEAS",
+    "title": "Good brands. Great print. Right doorstep.",
+    "intro": "From your first design to the final letterbox, we help you reach the neighbourhoods that matter to your business.",
+    "detail": "Choose the support you need, whether your leaflets are ready to go or your brand is starting from scratch."
   }
 }
