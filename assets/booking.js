@@ -1,14 +1,21 @@
 (() => {
-  const API_URL = 'https://nbwbqosofzwnxhzpsicj.supabase.co/rest/v1/rpc';
+  const API_URL = 'https://nbwbqosofzwnxhzpsicj.supabase.co';
   const API_KEY = 'sb_publishable_hXg97V6GpccCRV3zkuQvRQ_fT4UD4Wg';
   const form = document.querySelector('#campaign-form');
   if (!form) return;
   const state = { prices: [] };
   const money = value => new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP' }).format(Number(value || 0));
   const api = async (method, body = {}) => {
-    const response = await fetch(`${API_URL}/${method}`, { method: 'POST', headers: { apikey: API_KEY, 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+    const response = await fetch(`${API_URL}/rest/v1/rpc/${method}`, { method: 'POST', headers: { apikey: API_KEY, 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
     const data = await response.json().catch(() => null);
     if (!response.ok) throw new Error(data?.message || 'We could not complete that request. Please try again.');
+    return data;
+  };
+  const loadPrices = async () => {
+    const query = 'active=eq.true&price=not.is.null&category=in.(artwork,print,distribution)&select=category,product,option_name,quantity,price,sort_order&order=sort_order.asc';
+    const response = await fetch(`${API_URL}/rest/v1/pricing?${query}`, { headers: { apikey: API_KEY } });
+    const data = await response.json().catch(() => null);
+    if (!response.ok) throw new Error('Prices could not be loaded.');
     return data;
   };
   const optionPrice = (category, product, quantity) => state.prices.find(item => item.category === category && (!product || item.product === product) && (quantity == null || Number(item.quantity) === Number(quantity)));
@@ -48,7 +55,7 @@
   const today = new Date().toISOString().slice(0, 10);
   document.querySelector('#start-date').min = today; document.querySelector('#end-date').min = today;
   document.querySelector('#start-date').addEventListener('change', event => { document.querySelector('#end-date').min = event.target.value || today; });
-  api('get_campaign_prices').then(renderPrices).catch(() => { document.querySelector('#artwork-options').innerHTML = '<p class="form-error">Prices could not be loaded. Please refresh the page or contact us.</p>'; form.querySelector('button[type="submit"]').disabled = true; });
+  loadPrices().then(renderPrices).catch(() => { document.querySelector('#artwork-options').innerHTML = '<p class="form-error">Prices could not be loaded. Please refresh the page or contact us.</p>'; form.querySelector('button[type="submit"]').disabled = true; });
   form.addEventListener('submit', async event => {
     event.preventDefault(); const message = document.querySelector('#form-message'); if (!form.reportValidity()) return;
     const button = form.querySelector('button[type="submit"]'); button.disabled = true; button.textContent = 'Submitting…'; message.className = 'form-message'; message.textContent = '';
