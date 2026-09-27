@@ -7,6 +7,10 @@
   <title>Create a campaign | DeliverCrew Distribution</title>
   <link rel="stylesheet" href="assets/site.css">
   <script defer src="assets/site.js"></script>
+  <link rel="stylesheet" href="assets/leaflet.css">
+  <link rel="stylesheet" href="assets/area-map.css">
+  <script defer src="assets/leaflet.js"></script>
+  <script defer src="assets/area-map.js"></script>
   <script defer src="assets/booking.js"></script>
 </head>
 <body>
@@ -30,8 +34,23 @@
         <div class="form-panel"><p class="form-step">4</p><div><h2>Distribution</h2><p>Choose shared or solus delivery and the number of leaflets.</p></div><div class="form-grid two">
           <label>Delivery type <span aria-hidden="true">*</span><select id="distribution-type" name="distribution_type" required><option value="">Choose a delivery type</option><option value="shared">Shared delivery</option><option value="solus">Solus delivery</option></select></label>
           <label>Quantity <span aria-hidden="true">*</span><select id="distribution-quantity" name="distribution_quantity" required><option value="">Choose a quantity</option></select></label>
+          <section class="area-planner full" aria-labelledby="area-map-heading">
+            <h3 id="area-map-heading">Choose your delivery areas</h3>
+            <p>Search a postcode, then tap a map marker or select an area below. You can choose several postcode sectors across East and West Sussex.</p>
+            <label for="area-search">Postcode or town</label>
+            <div class="area-search-row"><input id="area-search" type="search" placeholder="For example BN2, RH10 or Brighton" autocomplete="off" aria-controls="area-results"><button type="button" id="area-search-button" class="button">Find area</button></div>
+            <p id="area-status" class="form-help" role="status">Loading delivery areas…</p>
+            <div id="area-map" aria-label="Interactive postcode sector map" tabindex="0"></div>
+            <p class="form-help">Tap a marker to add or remove its sector. Teal markers are selected. Locations are approximate; markers do not show delivery boundaries.</p>
+            <div class="area-selection"><div><span>Selected sectors</span><strong id="area-count">0</strong></div><div><span>Estimated households · 2021</span><strong id="area-households">0</strong></div><button type="button" id="area-clear" class="area-small-button" disabled>Clear selection</button></div>
+            <div id="area-selected" aria-label="Selected postcode sectors"></div>
+            <div id="area-results" class="area-results" aria-label="Matching postcode sectors"></div>
+            <button type="button" id="area-more" class="area-small-button" hidden>Show more areas</button>
+            <p class="form-help">Household figures are <a href="https://www.nomisweb.co.uk/sources/census_2021_pc" target="_blank" rel="noopener">ONS Census 2021 estimates</a>, not current deliverable address counts. Map locations use <a href="https://github.com/odileeds/Postcodes2LatLon" target="_blank" rel="noopener">ONS postcode lookup data</a> under the <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" target="_blank" rel="noopener">Open Government Licence</a>. Contains OS, Royal Mail and National Statistics data. Your leaflet quantity and guide price are based on the options you choose above. Selecting a sector does not guarantee every household will be covered.</p>
+            <p id="area-quantity-note" class="form-help" role="status"></p>
+          </section>
           <label class="full">Target area or neighbourhoods <span aria-hidden="true">*</span><textarea name="delivery_area" maxlength="300" rows="3" placeholder="For example: Hove, Patcham and Brighton Marina" required></textarea></label>
-          <label class="full">Preferred postcodes<textarea name="delivery_postcodes" maxlength="500" rows="2" placeholder="For example: BN1, BN2, BN3"></textarea></label>
+          <label class="full">Preferred postcodes<textarea name="delivery_postcodes" maxlength="500" rows="2" placeholder="For example: BN1, BN2, BN3" aria-describedby="area-field-help"></textarea><span id="area-field-help" class="form-help">Map selections are included automatically. Clear the map selection to type postcodes manually.</span></label>
           <label>Preferred start date<input id="start-date" name="preferred_start_date" type="date"></label><label>Preferred end date<input id="end-date" name="preferred_end_date" type="date"></label>
           <label class="full">Anything else we should know?<textarea name="notes" maxlength="1500" rows="4"></textarea></label>
         </div></div>
@@ -43,3 +62,4 @@
   <footer class="footer"><div class="wrap"><span>© 2026 DeliverCrew Distribution · Leaflet distribution. Creative thinking. Local reach.</span><a href="#main">Back to top ↑</a></div></footer>
 </body>
 </html>
+
