@@ -4,6 +4,7 @@ const sb = window.supabase.createClient(SB_URL, SB_KEY);
 const $ = selector => document.querySelector(selector);
 const money = value => new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP' }).format(Number(value || 0));
 const statuses = ['new_enquiry', 'awaiting_artwork', 'design', 'awaiting_payment', 'print', 'scheduled', 'distribution_in_progress', 'completed', 'cancelled'];
+const paymentStatuses = ['unpaid', 'deposit_paid', 'paid', 'refunded', 'part_refunded'];
 let campaigns = [];
 
 function esc(value) {
@@ -63,6 +64,25 @@ document.querySelectorAll('[data-tab]').forEach(button => {
   });
 });
 
+$('#campaign-search').addEventListener('input', event => {
+  const term = event.target.value.trim().toLowerCase();
+  if (!term) {
+    renderCampaigns(campaigns, false);
+    return;
+  }
+  renderCampaigns(campaigns.filter(item => [
+    `dc-${item.campaign_number}`,
+    item.status,
+    item.payment_status,
+    item.delivery_area,
+    item.delivery_postcodes,
+    item.customers?.first_name,
+    item.customers?.last_name,
+    item.customers?.business_name,
+    item.customers?.email
+  ].some(value => String(value || '').toLowerCase().includes(term))), false);
+});
+
 async function loadAll() {
   $('#dash-status').textContent = 'Loading…';
   const [campaignResult, customerResult, priceResult] = await Promise.all([
@@ -81,18 +101,20 @@ async function loadAll() {
   $('#dash-status').textContent = '';
 }
 
-function renderCampaigns(rows) {
-  $('#s-total').textContent = rows.length;
-  $('#s-new').textContent = rows.filter(item => item.status === 'new_enquiry').length;
-  $('#s-progress').textContent = rows.filter(item => !['new_enquiry', 'completed', 'cancelled'].includes(item.status)).length;
-  $('#s-complete').textContent = rows.filter(item => item.status === 'completed').length;
+function renderCampaigns(rows, updateStats = true) {
+  if (updateStats) {
+    $('#s-total').textContent = rows.length;
+    $('#s-new').textContent = rows.filter(item => item.status === 'new_enquiry').length;
+    $('#s-progress').textContent = rows.filter(item => !['new_enquiry', 'completed', 'cancelled'].includes(item.status)).length;
+    $('#s-complete').textContent = rows.filter(item => item.status === 'completed').length;
+  }
   $('#campaign-rows').innerHTML = rows.length ? rows.map(item => `<tr>
     <td><b>DC-${esc(item.campaign_number)}</b></td>
     <td>${new Date(item.created_at).toLocaleDateString('en-GB')}</td>
     <td>${esc([item.customers?.first_name, item.customers?.last_name].filter(Boolean).join(' '))}<br><small>${esc(item.customers?.business_name || item.customers?.email || '')}</small></td>
     <td>${esc(item.print_product || 'No print')} ${item.print_quantity ? `<br>${Number(item.print_quantity).toLocaleString('en-GB')}` : ''}<br><small>${esc(label(item.distribution_type))}</small></td>
     <td>${money(item.total)}</td>
-    <td>${esc(label(item.payment_status))}</td>
+    <td><select class="status-select" data-payment="${item.id}">${paymentStatuses.map(status => `<option value="${status}" ${status === item.payment_status ? 'selected' : ''}>${esc(label(status))}</option>`).join('')}</select></td>
     <td><select class="status-select" data-status="${item.id}">${statuses.map(status => `<option value="${status}" ${status === item.status ? 'selected' : ''}>${esc(label(status))}</option>`).join('')}</select></td>
     <td><button class="button outline" type="button" data-view="${item.id}">View</button></td>
   </tr>`).join('') : '<tr><td colspan="8">No campaign requests yet.</td></tr>';
@@ -100,10 +122,19 @@ function renderCampaigns(rows) {
   document.querySelectorAll('[data-status]').forEach(select => {
     select.addEventListener('change', async () => {
       select.disabled = true;
-      const { error } = await sb.from('campaigns').update({ status: select.value }).eq('id', select.dataset.status);
+      const { data, error } = await sb.from('campaigns').update({ status: select.value }).eq('id', select.dataset.status).select('id').maybeSingle();
       select.disabled = false;
-      $('#dash-status').textContent = error ? 'Status could not be updated.' : 'Campaign status updated.';
-      if (!error) campaigns.find(item => String(item.id) === select.dataset.status).status = select.value;
+      $('#dash-status').textContent = error || !data ? 'Status could not be updated.' : 'Campaign status updated.';
+      if (!error && data) campaigns.find(item => String(item.id) === select.dataset.status).status = select.value;
+    });
+  });
+  document.querySelectorAll('[data-payment]').forEach(select => {
+    select.addEventListener('change', async () => {
+      select.disabled = true;
+      const { data, error } = await sb.from('campaigns').update({ payment_status: select.value }).eq('id', select.dataset.payment).select('id').maybeSingle();
+      select.disabled = false;
+      $('#dash-status').textContent = error || !data ? 'Payment status could not be updated.' : 'Payment status updated.';
+      if (!error && data) campaigns.find(item => String(item.id) === select.dataset.payment).payment_status = select.value;
     });
   });
   document.querySelectorAll('[data-view]').forEach(button => button.addEventListener('click', () => renderCampaignDetail(button.dataset.view)));
@@ -136,10 +167,10 @@ function renderCampaignDetail(id) {
       gps_report_url: $('#gps-report-url').value || null,
       completion_report_url: $('#completion-report-url').value || null
     };
-    const { error } = await sb.from('campaigns').update(updates).eq('id', item.id);
+    const { data, error } = await sb.from('campaigns').update(updates).eq('id', item.id).select('id').maybeSingle();
     button.disabled = false;
-    $('#dash-status').textContent = error ? 'Campaign details could not be saved.' : 'Campaign details saved.';
-    if (!error) Object.assign(item, updates);
+    $('#dash-status').textContent = error || !data ? 'Campaign details could not be saved.' : 'Campaign details saved.';
+    if (!error && data) Object.assign(item, updates);
   });
   panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
@@ -166,9 +197,9 @@ function renderPrices(rows) {
         return;
       }
       button.disabled = true;
-      const { error } = await sb.from('pricing').update({ price, active: active.checked, updated_at: new Date().toISOString() }).eq('id', button.dataset.save);
+      const { data, error } = await sb.from('pricing').update({ price, active: active.checked, updated_at: new Date().toISOString() }).eq('id', button.dataset.save).select('id').maybeSingle();
       button.disabled = false;
-      $('#dash-status').textContent = error ? 'Pricing could not be saved.' : 'Pricing saved and the booking calculator will use the change.';
+      $('#dash-status').textContent = error || !data ? 'Pricing could not be saved.' : 'Pricing saved and the booking calculator will use the change.';
     });
   });
 }
