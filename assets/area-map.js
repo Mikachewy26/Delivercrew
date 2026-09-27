@@ -92,7 +92,8 @@
     const raw=search.value.trim();
     let term=normal(raw), exactSector=/^[A-Z]{1,2}\d[A-Z\d]?\s+\d$/i.test(raw);
     if (/^[A-Z]{1,2}\d[A-Z\d]?\d[A-Z]{2}$/.test(term)) { term=term.slice(0,-2); exactSector=true; }
-    matches=rows.filter(r=>exactSector ? normal(r.sector)===term : normal(r.sector).startsWith(term)||normal(r.place).includes(term));limit=20;
+    const exactDistrict=!exactSector && rows.some(r=>r.sector.split(' ')[0]===term);
+    matches=rows.filter(r=>exactSector ? normal(r.sector)===term : exactDistrict ? r.sector.split(' ')[0]===term : normal(r.sector).startsWith(term)||normal(r.place).includes(term));limit=20;
     status.textContent=`${matches.length} matching sectors. Tap a marker or choose from the list.`;
     render();paintMarkers();
     if (map && focus) {
