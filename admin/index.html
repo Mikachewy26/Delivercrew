@@ -1,1 +1,34 @@
-<!doctype html><html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DeliverCrew content editor</title></head><body><script src="https://cdn.jsdelivr.net/npm/decap-cms@^3.0.0/dist/decap-cms.js"></script></body></html>
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; connect-src https://nbwbqosofzwnxhzpsicj.supabase.co; img-src 'self' data:; style-src 'self'; base-uri 'self'; form-action 'self'">
+  <title>DeliverCrew website editor</title>
+  <link rel="stylesheet" href="../assets/site.css">
+  <link rel="stylesheet" href="editor.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2"></script>
+  <script defer src="editor.js"></script>
+</head>
+<body>
+  <main class="editor-shell">
+    <header class="editor-header"><div><p class="eyebrow">DELIVERCREW</p><h1>Website editor</h1><p>Edit your website text here. Saved changes appear on the live pages without a separate publish step.</p></div><a class="button outline" href="../index.html">View website</a></header>
+
+    <section id="login-panel" class="editor-card login-panel">
+      <h2>Private sign in</h2>
+      <p>Use the email and password for your DeliverCrew business dashboard.</p>
+      <form id="login-form"><label>Email<input id="email" type="email" autocomplete="username" required></label><label>Password<input id="password" type="password" autocomplete="current-password" required></label><button class="button" type="submit">Sign in</button></form>
+      <button id="show-reset" class="text-button" type="button">Forgot your password?</button>
+    </section>
+
+    <section id="reset-panel" class="editor-card login-panel hidden"><h2>Reset your password</h2><p>We will send a reset link to your authorised email address.</p><form id="reset-form"><label>Email<input id="reset-email" type="email" autocomplete="email" required></label><button class="button" type="submit">Email reset link</button></form><button id="back-to-login" class="text-button" type="button">Back to sign in</button></section>
+
+    <section id="new-password-panel" class="editor-card login-panel hidden"><h2>Choose a new password</h2><form id="new-password-form"><label>New password<input id="new-password" type="password" minlength="12" autocomplete="new-password" required></label><button class="button" type="submit">Save new password</button></form></section>
+
+    <section id="editor-panel" class="hidden"><div class="editor-bar"><p>Open a section below, change its text, then save. Your booking prices and campaign details are managed separately in the <a href="../dashboard/">business dashboard</a>.</p><button id="signout" class="button outline" type="button">Sign out</button></div><form id="content-form"><div id="sections"></div><div class="save-bar"><button id="save-content" class="button" type="submit">Save website changes</button><span id="saved-at"></span></div></form></section>
+    <p id="editor-status" role="status" aria-live="polite"></p>
+  </main>
+</body>
+</html>
