@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Plan and submit a DeliverCrew leaflet distribution campaign online.">
+  <title>Create a campaign | DeliverCrew Distribution</title>
+  <link rel="stylesheet" href="assets/site.css">
+  <script defer src="assets/site.js"></script>
+  <script defer src="assets/booking.js"></script>
+</head>
+<body>
+  <a class="visually-hidden" href="#main">Skip to content</a>
+  <header class="site-header"><div class="wrap header-inner"><a class="brand" href="index.html" aria-label="DeliverCrew Distribution home"><img src="assets/logo.png" alt="DeliverCrew Distribution" width="290" height="109"></a><nav class="nav" aria-label="Main navigation"><a href="index.html">Home</a><a href="distribution.html">Leaflet distribution</a><a href="print.html">Design &amp; print</a><a href="branding.html">Branding &amp; signage</a><a href="websites.html">Websites &amp; marketing</a><a href="gps.html">GPS tracking</a><a href="booking.html" aria-current="page">Create a campaign</a></nav></div></header>
+  <main id="main">
+    <section class="hero booking-hero"><div class="wrap"><p class="eyebrow">CREATE A CAMPAIGN</p><h1>Plan your leaflet campaign online.</h1><p class="lead">Choose your design, print and delivery options to see a clear guide price. We will review your area and dates before confirming the campaign.</p></div></section>
+    <section class="section"><div class="wrap booking-layout">
+      <form id="campaign-form" class="campaign-form" novalidate>
+        <div class="form-panel"><p class="form-step">1</p><div><h2>Your details</h2><p>Tell us who the campaign is for.</p></div><div class="form-grid two">
+          <label>First name <span aria-hidden="true">*</span><input name="first_name" autocomplete="given-name" maxlength="80" required></label>
+          <label>Last name<input name="last_name" autocomplete="family-name" maxlength="80"></label>
+          <label class="full">Business name<input name="business_name" autocomplete="organization" maxlength="150"></label>
+          <label>Email address <span aria-hidden="true">*</span><input name="email" type="email" autocomplete="email" maxlength="254" required></label>
+          <label>Phone number<input name="phone" type="tel" autocomplete="tel" maxlength="40"></label>
+          <label class="full">Business or collection address<textarea name="address" autocomplete="street-address" maxlength="300" rows="3"></textarea></label>
+          <label>Postcode<input name="postcode" autocomplete="postal-code" maxlength="16"></label>
+        </div></div>
+        <div class="form-panel"><p class="form-step">2</p><div><h2>Artwork</h2><p>Select the design support you need.</p></div><div id="artwork-options" class="choice-grid" aria-live="polite"><p>Loading artwork options…</p></div></div>
+        <div class="form-panel"><p class="form-step">3</p><div><h2>Printing</h2><p>Add printing now, or continue if your leaflets are already ready.</p></div><div><label class="check-row"><input id="include-print" type="checkbox"> Add leaflet printing</label><div id="print-fields" class="form-grid two" hidden><label>Leaflet size<select id="print-product" name="print_product"><option value="">Choose a size</option></select></label><label>Print quantity<select id="print-quantity" name="print_quantity"><option value="">Choose a quantity</option></select></label><p id="print-availability" class="form-help full"></p></div></div></div>
+        <div class="form-panel"><p class="form-step">4</p><div><h2>Distribution</h2><p>Choose shared or solus delivery and the number of leaflets.</p></div><div class="form-grid two">
+          <label>Delivery type <span aria-hidden="true">*</span><select id="distribution-type" name="distribution_type" required><option value="">Choose a delivery type</option><option value="shared">Shared delivery</option><option value="solus">Solus delivery</option></select></label>
+          <label>Quantity <span aria-hidden="true">*</span><select id="distribution-quantity" name="distribution_quantity" required><option value="">Choose a quantity</option></select></label>
+          <label class="full">Target area or neighbourhoods <span aria-hidden="true">*</span><textarea name="delivery_area" maxlength="300" rows="3" placeholder="For example: Hove, Patcham and Brighton Marina" required></textarea></label>
+          <label class="full">Preferred postcodes<textarea name="delivery_postcodes" maxlength="500" rows="2" placeholder="For example: BN1, BN2, BN3"></textarea></label>
+          <label>Preferred start date<input id="start-date" name="preferred_start_date" type="date"></label><label>Preferred end date<input id="end-date" name="preferred_end_date" type="date"></label>
+          <label class="full">Anything else we should know?<textarea name="notes" maxlength="1500" rows="4"></textarea></label>
+        </div></div>
+        <div class="form-panel form-submit-panel"><label class="check-row"><input name="terms_accepted" type="checkbox" required> I agree that DeliverCrew may use these details to review and contact me about this campaign. <span aria-hidden="true">*</span></label><label class="website-field" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off"></label><p id="form-message" class="form-message" role="status" aria-live="polite"></p><button class="button" type="submit">Submit campaign request</button><p class="form-help">Submitting a request does not take payment or confirm a delivery date. We will check availability and contact you before the campaign goes ahead.</p></div>
+      </form>
+      <aside class="price-summary" aria-labelledby="summary-title"><h2 id="summary-title">Your guide price</h2><dl><div><dt>Artwork</dt><dd id="artwork-total">—</dd></div><div><dt>Printing</dt><dd id="print-total">—</dd></div><div><dt>Distribution</dt><dd id="distribution-total">—</dd></div><div class="grand-total"><dt>Estimated total</dt><dd id="campaign-total">£0.00</dd></div></dl><p>Prices shown are based on the options selected. Rural routes, unusual leaflet specifications and campaigns over 20,000 may need a tailored quote.</p></aside>
+    </div></section>
+  </main>
+  <footer class="footer"><div class="wrap"><span>© 2026 DeliverCrew Distribution · Leaflet distribution. Creative thinking. Local reach.</span><a href="#main">Back to top ↑</a></div></footer>
+</body>
+</html>
