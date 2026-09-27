@@ -14,6 +14,20 @@ const sectionNames = {
 let content = null;
 let savedVersion = null;
 let recoveryInProgress = false;
+let editVersion = 0;
+let savedEditVersion = 0;
+let saving = false;
+
+function hasUnsavedChanges() { return editVersion !== savedEditVersion; }
+$('#content-form').addEventListener('input', () => {
+  editVersion += 1;
+  status(saving ? 'Saving earlier changes… Your latest edits still need saving.' : 'You have unsaved changes.');
+});
+window.addEventListener('beforeunload', event => {
+  if (!hasUnsavedChanges()) return;
+  event.preventDefault();
+  event.returnValue = '';
+});
 
 function status(message) { $('#editor-status').textContent = message; }
 function panel(name) {
@@ -41,6 +55,7 @@ async function showEditor() {
   }
   content = data.content;
   savedVersion = data.updated_at;
+  editVersion = savedEditVersion = 0;
   renderFields();
   panel('editor-panel');
   $('#saved-at').textContent = `Last saved ${new Date(savedVersion).toLocaleString('en-GB')}`;
@@ -103,9 +118,14 @@ $('#login-form').addEventListener('submit', async event => {
 });
 
 $('#signout').addEventListener('click', async () => {
-  await client.auth.signOut();
+  if (saving) { status('Please wait for the save to finish before signing out.'); return; }
+  if (hasUnsavedChanges() && !window.confirm('Discard your unsaved website changes and sign out?')) return;
+  const { error } = await client.auth.signOut();
+  if (error) { status('Sign out failed. Please try again.'); return; }
   content = null;
   savedVersion = null;
+  editVersion = savedEditVersion = 0;
+  $('#sections').replaceChildren();
   panel('login-panel');
   status('Signed out.');
 });
@@ -152,27 +172,36 @@ $('#new-password-form').addEventListener('submit', async event => {
 
 $('#content-form').addEventListener('submit', async event => {
   event.preventDefault();
-  if (!content || !savedVersion) return;
+  if (!content || !savedVersion || saving) return;
+  const submittedVersion = editVersion;
   const draft = JSON.parse(JSON.stringify(content));
   for (const input of $('#sections').querySelectorAll('[data-section][data-key]')) {
     draft[input.dataset.section][input.dataset.key] = input.value;
   }
   const button = $('#save-content');
+  saving = true;
   button.disabled = true;
   status('Saving changes…');
+  try {
   const { data, error } = await client.from('site_content')
     .update({ content: draft, updated_at: new Date().toISOString() })
     .eq('id', 'main').eq('updated_at', savedVersion)
     .select('updated_at').maybeSingle();
-  button.disabled = false;
   if (error || !data) {
     status('Changes were not saved. If another editor changed the page, refresh and try again.');
     return;
   }
   content = draft;
   savedVersion = data.updated_at;
+  savedEditVersion = submittedVersion;
   $('#saved-at').textContent = `Last saved ${new Date(savedVersion).toLocaleString('en-GB')}`;
-  status('Saved. Your website text is live.');
+  status(hasUnsavedChanges() ? 'Earlier changes saved. Your latest edits are not saved yet; select Save changes again.' : 'Saved. Your website text is live.');
+  } catch (error) {
+    status('The save could not be confirmed. Your edits are still here. Check your connection and try again.');
+  } finally {
+    saving = false;
+    button.disabled = false;
+  }
 });
 
 showEditor();
