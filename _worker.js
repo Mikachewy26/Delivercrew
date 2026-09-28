@@ -55,7 +55,6 @@ async function orderForSession(env,session){
 async function fulfill(env,session){
   const order=await orderForSession(env,session);
   if(session.payment_status!=='paid'||session.status!=='complete')return {paid:false,campaign_number:order.campaign_number};
-  // Only transition an unpaid record. Delayed or duplicate events must not undo refunds.
   if(order.payment_status==='unpaid'){
     const update={payment_status:'paid',stripe_payment_intent:typeof session.payment_intent==='string'?session.payment_intent:null};
     if(order.status==='awaiting_payment')update.status='awaiting_artwork';
@@ -77,7 +76,6 @@ async function checkout(request,env){
   trustedRequest(request);requireSetup(env);if(!enabled(env))throw new PublicError('Online payment is not available yet. Please request a quote instead.',503,'not_enabled');
   let input;try{input=JSON.parse(await readBody(request,16000))}catch(error){if(error instanceof PublicError)throw error;throw new PublicError('Invalid checkout request.')}
   if(!UUID.test(input.request_id||'')||!input.payload||typeof input.payload!=='object'||Array.isArray(input.payload))throw new PublicError('Invalid checkout request.');
-  // Supabase validates the choices and calculates the price from its current price list.
   const [order]=await db(env,'rpc/prepare_campaign_checkout',{method:'POST',body:{p_request_id:input.request_id,p_payload:input.payload}});
   if(!order||!UUID.test(order.id))throw new PublicError('Order could not be prepared.',502);
   if(order.stripe_session_id){
@@ -93,7 +91,6 @@ async function checkout(request,env){
   const body=new URLSearchParams({mode:'payment',success_url:`${origin}/payment.html?session_id={CHECKOUT_SESSION_ID}`,cancel_url:`${origin}/booking.html?payment=cancelled`,client_reference_id:order.id,customer_email:order.email,'payment_method_types[0]':'card','metadata[application]':'delivercrew','metadata[campaign_id]':order.id,'metadata[campaign_number]':String(order.campaign_number),'line_items[0][price_data][currency]':'gbp','line_items[0][price_data][unit_amount]':String(pence(order.total)),'line_items[0][price_data][product_data][name]':`DeliverCrew campaign DC-${order.campaign_number}`,'line_items[0][quantity]':'1','custom_text[submit][message]':'Preferred delivery dates are subject to availability. DeliverCrew will confirm the schedule with you.'});
   const session=await stripe(env,'checkout/sessions',{method:'POST',body,idempotencyKey:`delivercrew-${input.request_id}`});
   if(!SESSION.test(session.id||'')||!session.url?.startsWith('https://checkout.stripe.com/'))throw new PublicError('Secure checkout could not be opened.',502);
-  // Store the session before redirecting so the webhook can verify the exact order.
   const linked=await db(env,`campaigns?id=eq.${order.id}&stripe_session_id=is.null&payment_status=eq.unpaid`,{method:'PATCH',body:{stripe_session_id:session.id},prefer:'return=representation'});
   if(!linked?.length){const [current]=await db(env,`campaigns?id=eq.${order.id}&select=stripe_session_id`);if(current?.stripe_session_id!==session.id)throw new PublicError('Please contact DeliverCrew before trying another payment.',409)}
   return json({url:session.url});
@@ -113,7 +110,16 @@ export default {async fetch(request,env){
   const url=new URL(request.url);
   if(!url.pathname.startsWith('/api/payments/'))return env.ASSETS.fetch(request);
   try{
-    if(url.pathname==='/api/payments/config'&&request.method==='GET')return json({available:enabled(env),test:enabled(env)?!keyMode(env):false});
+    if(url.pathname==='/api/payments/config'&&request.method==='GET')return json({
+      available:enabled(env),
+      test:enabled(env)?!keyMode(env):false,
+      diagnostic:{
+        stripe:Boolean(env.STRIPE_SECRET_KEY),
+        webhook:Boolean(env.STRIPE_WEBHOOK_SECRET),
+        supabase:Boolean(dbKey(env)),
+        payments_enabled:env.PAYMENTS_ENABLED === 'true'
+      }
+    });
     if(url.pathname==='/api/payments/checkout'&&request.method==='POST')return await checkout(request,env);
     if(url.pathname==='/api/payments/webhook'&&request.method==='POST')return await webhook(request,env);
     if(url.pathname==='/api/payments/status'&&request.method==='GET'){
