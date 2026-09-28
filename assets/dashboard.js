@@ -26,7 +26,7 @@ async function show() {
   if (await authorised()) {
     $('#login').classList.add('hidden');
     $('#app').classList.remove('hidden');
-    await loadAll();
+    await Promise.all([loadAll(), loadEnquiries()]);
   } else {
     $('#app').classList.add('hidden');
     $('#login').classList.remove('hidden');
@@ -204,4 +204,52 @@ function renderPrices(rows) {
   });
 }
 
+async function loadEnquiries() {
+  const container = $('#enquiry-list');
+  if (!container) return;
+  const info = $('#enquiries-status');
+  info.textContent = 'Loading enquiries…';
+  try {
+    const { data, error } = await sb.from('contact_enquiries').select('*').order('created_at', { ascending: false }).limit(500);
+    if (error) throw error;
+    container.replaceChildren();
+    for (const item of data || []) {
+      const card = document.createElement('article');
+      card.className = 'panel';
+      const title = document.createElement('h3');
+      title.textContent = [item.first_name, item.last_name].join(' ');
+      card.append(title);
+      for (const [name, value] of [['Received', new Date(item.created_at).toLocaleString('en-GB')], ['Email', item.email], ['Phone', item.phone], ['Company', item.company_name], ['Location', item.company_location], ['Message', item.message]]) {
+        const p = document.createElement('p');
+        p.style.whiteSpace = 'pre-wrap';
+        p.style.overflowWrap = 'anywhere';
+        p.textContent = name + ': ' + (value || '—');
+        card.append(p);
+      }
+      const label = document.createElement('label');
+      label.textContent = 'Enquiry status ';
+      const select = document.createElement('select');
+      for (const value of ['new', 'contacted', 'closed']) {
+        const option = document.createElement('option');
+        option.value = value; option.textContent = value; option.selected = item.status === value;
+        select.append(option);
+      }
+      select.addEventListener('change', async () => {
+        select.disabled = true;
+        try {
+          const result = await sb.from('contact_enquiries').update({status: select.value}).eq('id', item.id).select('id').maybeSingle();
+          if (result.error || !result.data) throw new Error('Not saved');
+          item.status = select.value;
+          info.textContent = 'Enquiry status saved.';
+        } catch {
+          select.value = item.status;
+          info.textContent = 'Status could not be saved. Please try again.';
+        } finally { select.disabled = false; }
+      });
+      label.append(select); card.append(label); container.append(card);
+    }
+    info.textContent = data?.length ? 'Showing the latest ' + data.length + ' enquiries.' : 'No contact enquiries yet.';
+  } catch { info.textContent = 'Enquiries could not be loaded. Please refresh or sign in again.'; }
+}
+$('#refresh-enquiries')?.addEventListener('click', loadEnquiries);
 show();
