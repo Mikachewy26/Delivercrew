@@ -5,115 +5,26 @@
   if (!form) return;
   const state = { prices: [], pricesReady: false, paymentAvailable: false, submitting: false };
   const money = value => new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP' }).format(Number(value || 0));
-  const api = async (method, body = {}) => {
-    const response = await fetch(`${API_URL}/rest/v1/rpc/${method}`, { method: 'POST', headers: { apikey: API_KEY, 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
-    const data = await response.json().catch(() => null);
-    if (!response.ok) throw new Error(data?.message || 'We could not complete that request. Please try again.');
-    return data;
-  };
-  const loadPrices = async () => {
-    const query = 'active=eq.true&price=not.is.null&category=in.(artwork,print,distribution)&select=category,product,option_name,quantity,price,sort_order&order=sort_order.asc';
-    const response = await fetch(`${API_URL}/rest/v1/pricing?${query}`, { headers: { apikey: API_KEY } });
-    const data = await response.json().catch(() => null);
-    if (!response.ok) throw new Error('Prices could not be loaded.');
-    return data;
-  };
+  const api = async (method, body = {}) => { const response = await fetch(`${API_URL}/rest/v1/rpc/${method}`, { method: 'POST', headers: { apikey: API_KEY, 'Content-Type': 'application/json' }, body: JSON.stringify(body) }); const data = await response.json().catch(() => null); if (!response.ok) throw new Error(data?.message || 'We could not complete that request. Please try again.'); return data; };
+  const loadPrices = async () => { const query = 'active=eq.true&price=not.is.null&category=in.(artwork,print,distribution)&select=category,product,option_name,quantity,price,sort_order&order=sort_order.asc'; const response = await fetch(`${API_URL}/rest/v1/pricing?${query}`, { headers: { apikey: API_KEY } }); const data = await response.json().catch(() => null); if (!response.ok) throw new Error('Prices could not be loaded.'); return data; };
   const optionPrice = (category, product, quantity) => state.prices.find(item => item.category === category && (!product || item.product === product) && (quantity == null || Number(item.quantity) === Number(quantity)));
   const selectedArtwork = () => state.prices.find(item => item.category === 'artwork' && item.option_name === form.elements.artwork_label?.value);
-  const updateSummary = () => {
-    const artwork = selectedArtwork()?.price || 0;
-    const print = document.querySelector('#include-print').checked ? optionPrice('print', document.querySelector('#print-product').value, document.querySelector('#print-quantity').value)?.price || 0 : 0;
-    const type = document.querySelector('#distribution-type').value;
-    const typeLabel = type === 'shared' ? 'Shared delivery' : type === 'solus' ? 'Solus delivery' : '';
-    const distribution = optionPrice('distribution', typeLabel, document.querySelector('#distribution-quantity').value)?.price || 0;
-    document.querySelector('#artwork-total').textContent = selectedArtwork() ? money(artwork) : '—';
-    document.querySelector('#print-total').textContent = document.querySelector('#include-print').checked ? (print ? money(print) : 'Choose options') : 'Not added';
-    document.querySelector('#distribution-total').textContent = distribution ? money(distribution) : '—';
-    document.querySelector('#campaign-total').textContent = money(Number(artwork) + Number(print) + Number(distribution));
-  };
-  const renderPrices = prices => {
-    state.prices = prices;
-    const artwork = prices.filter(item => item.category === 'artwork');
-    document.querySelector('#artwork-options').innerHTML = artwork.map((item, index) => `<label class="choice-card"><input type="radio" name="artwork_label" value="${item.option_name}" ${index === 0 ? 'required' : ''}><span><strong>${item.option_name}</strong><small>${money(item.price)}</small></span></label>`).join('');
-    const printProducts = [...new Set(prices.filter(item => item.category === 'print').map(item => item.product))];
-    document.querySelector('#print-product').insertAdjacentHTML('beforeend', printProducts.map(product => `<option value="${product}">${product.replace(' 350gsm Silk Finish', '')}</option>`).join(''));
-    const quantities = [...new Set(prices.filter(item => item.category === 'distribution').map(item => Number(item.quantity)))].sort((a, b) => a - b);
-    document.querySelector('#distribution-quantity').insertAdjacentHTML('beforeend', quantities.map(quantity => `<option value="${quantity}">${quantity.toLocaleString('en-GB')} leaflets</option>`).join(''));
-  };
-  const updatePrintQuantities = () => {
-    const product = document.querySelector('#print-product').value;
-    const quantitySelect = document.querySelector('#print-quantity');
-    const options = state.prices.filter(item => item.category === 'print' && item.product === product);
-    quantitySelect.innerHTML = '<option value="">Choose a quantity</option>' + options.map(item => `<option value="${item.quantity}">${Number(item.quantity).toLocaleString('en-GB')} — ${money(item.price)}</option>`).join('');
-    document.querySelector('#print-availability').textContent = product && !options.length ? 'Online pricing for this size is coming soon. Please contact us for a tailored quote.' : '';
-    quantitySelect.disabled = !options.length;
-    updateSummary();
-  };
+  const updateSummary = () => { const artwork = selectedArtwork()?.price || 0; const print = document.querySelector('#include-print').checked ? optionPrice('print', document.querySelector('#print-product').value, document.querySelector('#print-quantity').value)?.price || 0 : 0; const type = document.querySelector('#distribution-type').value; const typeLabel = type === 'shared' ? 'Shared delivery' : type === 'solus' ? 'Solus delivery' : ''; const distribution = optionPrice('distribution', typeLabel, document.querySelector('#distribution-quantity').value)?.price || 0; document.querySelector('#artwork-total').textContent = selectedArtwork() ? money(artwork) : '—'; document.querySelector('#print-total').textContent = document.querySelector('#include-print').checked ? (print ? money(print) : 'Choose options') : 'Not added'; document.querySelector('#distribution-total').textContent = distribution ? money(distribution) : '—'; document.querySelector('#campaign-total').textContent = money(Number(artwork) + Number(print) + Number(distribution)); };
+  const renderPrices = prices => { state.prices = prices; const artwork = prices.filter(item => item.category === 'artwork'); document.querySelector('#artwork-options').innerHTML = artwork.map((item, index) => `<label class="choice-card"><input type="radio" name="artwork_label" value="${item.option_name}" ${index === 0 ? 'required' : ''}><span><strong>${item.option_name}</strong><small>${money(item.price)}</small></span></label>`).join(''); const printProducts = [...new Set(prices.filter(item => item.category === 'print').map(item => item.product))]; document.querySelector('#print-product').insertAdjacentHTML('beforeend', printProducts.map(product => `<option value="${product}">${product.replace(' 350gsm Silk Finish', '')}</option>`).join('')); const quantities = [...new Set(prices.filter(item => item.category === 'distribution').map(item => Number(item.quantity)))].sort((a, b) => a - b); document.querySelector('#distribution-quantity').insertAdjacentHTML('beforeend', quantities.map(quantity => `<option value="${quantity}">${quantity.toLocaleString('en-GB')} leaflets</option>`).join('')); };
+  const updatePrintQuantities = () => { const product = document.querySelector('#print-product').value; const quantitySelect = document.querySelector('#print-quantity'); const options = state.prices.filter(item => item.category === 'print' && item.product === product); quantitySelect.innerHTML = '<option value="">Choose a quantity</option>' + options.map(item => `<option value="${item.quantity}">${Number(item.quantity).toLocaleString('en-GB')} — ${money(item.price)}</option>`).join(''); document.querySelector('#print-availability').textContent = product && !options.length ? 'Online pricing for this size is coming soon. Please contact us for a tailored quote.' : ''; quantitySelect.disabled = !options.length; updateSummary(); };
   document.querySelector('#include-print').addEventListener('change', event => { document.querySelector('#print-fields').hidden = !event.target.checked; document.querySelector('#print-product').required = event.target.checked; document.querySelector('#print-quantity').required = event.target.checked; updateSummary(); });
-  document.querySelector('#print-product').addEventListener('change', updatePrintQuantities);
-  form.addEventListener('change', updateSummary);
-  const today = new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/London',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
-  for(const input of form.querySelectorAll('input[type="date"]')) input.min=today;
+  document.querySelector('#print-product').addEventListener('change', updatePrintQuantities); form.addEventListener('change', updateSummary);
+  const today = new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/London',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date()); for(const input of form.querySelectorAll('input[type="date"]')) input.min=today;
   const switchDates=()=>{const flexible=form.elements.date_choice.value==='flexible';document.querySelector('#three-dates').hidden=flexible;document.querySelector('#flexible-dates').hidden=!flexible;document.querySelector('#date-1').required=!flexible;document.querySelector('#ideal-date').required=flexible;document.querySelectorAll('#three-dates input').forEach(input=>input.disabled=flexible);document.querySelectorAll('#flexible-dates input,#flexible-dates select').forEach(input=>input.disabled=!flexible)};
   form.querySelectorAll('[name="date_choice"]').forEach(radio=>radio.addEventListener('change',switchDates));
   const addDays=(iso,days)=>{const d=new Date(`${iso}T12:00:00Z`);d.setUTCDate(d.getUTCDate()+days);return d.toISOString().slice(0,10)};
   const dateValues=fields=>{if(fields.get('date_choice')==='flexible'){const ideal=fields.get('ideal_date');const days=Number(fields.get('flex_days'));return{start:addDays(ideal,-days)<today?today:addDays(ideal,-days),end:addDays(ideal,days),description:`Ideal delivery date: ${ideal} ± ${days} days`}}const dates=[fields.get('date_1'),fields.get('date_2'),fields.get('date_3')].filter(Boolean);if(new Set(dates).size!==dates.length)throw new Error('Please choose different preferred dates.');return{start:dates[0],end:dates[0],description:`Preferred delivery dates (in order): ${dates.join(', ')}`}};
-  const quoteButton = document.querySelector('#request-quote');
-  const payButton = document.querySelector('#continue-payment');
-  const message = document.querySelector('#form-message');
-  const storage = {get:key=>{try{return JSON.parse(sessionStorage.getItem(key)||'null')}catch{return null}},set:(key,value)=>{try{sessionStorage.setItem(key,JSON.stringify(value))}catch{}},remove:key=>{try{sessionStorage.removeItem(key)}catch{}}};
-  let checkoutAttempt=storage.get('delivercrew-checkout-attempt');
+  const quoteButton=document.querySelector('#request-quote'),payButton=document.querySelector('#continue-payment'),message=document.querySelector('#form-message');
+  const storage={get:key=>{try{return JSON.parse(sessionStorage.getItem(key)||'null')}catch{return null}},set:(key,value)=>{try{sessionStorage.setItem(key,JSON.stringify(value))}catch{}},remove:key=>{try{sessionStorage.removeItem(key)}catch{}}}; let checkoutAttempt=storage.get('delivercrew-checkout-attempt');
   const setButtons=()=>{quoteButton.disabled=!state.pricesReady||state.submitting;payButton.disabled=!state.pricesReady||!state.paymentAvailable||state.submitting};
-  const restore = values => {
-    if(!values||typeof values!=='object')return;
-    for(const [key,value] of Object.entries(values)){const field=form.elements[key];if(field && !['artwork_label','print_product','print_quantity','terms_accepted','website'].includes(key) && value!=null)field.value=value}
-    const include=values.include_print===undefined?Boolean(values.print_product):values.include_print===true;document.querySelector('#include-print').checked=include;document.querySelector('#include-print').dispatchEvent(new Event('change'));
-    if(values.artwork_label){for(const radio of form.querySelectorAll('[name="artwork_label"]'))radio.checked=radio.value===values.artwork_label}
-    if(include){form.elements.print_product.value=values.print_product;updatePrintQuantities();form.elements.print_quantity.value=values.print_quantity||''}
-    switchDates();updateSummary();
-  };
+  const restore=values=>{if(!values||typeof values!=='object')return;for(const [key,value] of Object.entries(values)){const field=form.elements[key];if(field&&!['artwork_label','print_product','print_quantity','terms_accepted','website'].includes(key)&&value!=null)field.value=value}const include=values.include_print===undefined?Boolean(values.print_product):values.include_print===true;document.querySelector('#include-print').checked=include;document.querySelector('#include-print').dispatchEvent(new Event('change'));if(values.artwork_label){for(const radio of form.querySelectorAll('[name="artwork_label"]'))radio.checked=radio.value===values.artwork_label}if(include){form.elements.print_product.value=values.print_product;updatePrintQuantities();form.elements.print_quantity.value=values.print_quantity||''}switchDates();updateSummary();};
   switchDates();setButtons();
-  loadPrices().then(prices=>{
-    renderPrices(prices);state.pricesReady=true;
-    const reorder=storage.get('delivercrew-reorder');
-    if(reorder){restore(reorder);storage.remove('delivercrew-reorder')}
-    else if(new URLSearchParams(location.search).get('payment')==='cancelled'){
-      restore(storage.get('delivercrew-checkout-draft'));
-      message.textContent='Payment was not completed. Your choices are still here. You can return to payment or discuss your order.';
-    }
-    setButtons();
-  }).catch(()=>{document.querySelector('#artwork-options').textContent='Prices could not be loaded. Please refresh the page or contact us.';setButtons()});
-  fetch('/api/payments/config',{cache:'no-store'}).then(response=>response.ok?response.json():null).then(config=>{
-    state.paymentAvailable=config?.available===true;
-    if(state.paymentAvailable)document.querySelector('#payment-help').textContent=config.test?'Test checkout is active. No real payment will be taken.':'Pay securely now, or discuss your order and request a quote without paying. Preferred delivery dates are subject to availability.';
-    setButtons();
-  }).catch(()=>setButtons());
-  form.addEventListener('submit', async event => {
-    event.preventDefault();if(state.submitting||!state.pricesReady||!form.reportValidity())return;
-    const payment=event.submitter===payButton;if(payment&&!state.paymentAvailable)return;
-    message.className='form-message';message.textContent='';
-    const fields=new FormData(form);const artworkMap={'Supply own artwork':'own_artwork','Canva / AI design':'canva_ai_design','Bespoke design':'bespoke_design'};
-    const includePrint=document.querySelector('#include-print').checked;
-    let dates;try{dates=dateValues(fields)}catch(error){message.className='form-message form-error';message.textContent=error.message;return}
-    const notes=[dates.description,fields.get('notes')||''].filter(Boolean).join('\n\n');
-    if(notes.length>1500){message.className='form-message form-error';message.textContent='Please shorten your notes to allow room for the delivery dates.';return}
-    const payload={p_first_name:fields.get('first_name'),p_last_name:fields.get('last_name')||null,p_business_name:fields.get('business_name')||null,p_email:fields.get('email'),p_phone:fields.get('phone')||null,p_address:fields.get('address')||null,p_postcode:fields.get('postcode')||null,p_artwork_option:artworkMap[fields.get('artwork_label')],p_print_product:includePrint?fields.get('print_product'):null,p_print_quantity:includePrint?Number(fields.get('print_quantity')):null,p_distribution_type:fields.get('distribution_type'),p_distribution_quantity:Number(fields.get('distribution_quantity')),p_delivery_area:fields.get('delivery_area'),p_delivery_postcodes:fields.get('delivery_postcodes')||null,p_preferred_start_date:dates.start,p_preferred_end_date:dates.end,p_notes:notes,p_terms_accepted:fields.get('terms_accepted')==='on',p_website:fields.get('website')||null};
-    state.submitting=true;setButtons();message.textContent=payment?'Opening secure payment…':'Sending your request…';
-    try{
-      if(payment){
-        const fingerprint=JSON.stringify(payload);let attempt=checkoutAttempt;
-        if(!attempt||attempt.fingerprint!==fingerprint)attempt={id:crypto.randomUUID(),fingerprint};
-        checkoutAttempt=attempt;storage.set('delivercrew-checkout-attempt',attempt);storage.set('delivercrew-checkout-draft',{...Object.fromEntries(fields),include_print:includePrint});
-        const response=await fetch('/api/payments/checkout',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({request_id:attempt.id,payload})});
-        const result=await response.json().catch(()=>null);
-        if(!response.ok){if(result?.code==='session_expired'){checkoutAttempt=null;storage.remove('delivercrew-checkout-attempt')}throw new Error(result?.error||'Secure payment could not be opened. Please try again.')}
-        if(result?.url){const target=new URL(result.url);if(target.origin!=='https://checkout.stripe.com')throw new Error('Secure payment returned an unexpected address.');location.assign(target.href);return}
-        if(result?.return_url?.startsWith('/payment.html?session_id=')){location.assign(result.return_url);return}
-        throw new Error('Secure payment could not be opened. Please try again.');
-      }
-      const [result]=await api('submit_campaign',payload);
-      form.innerHTML=`<div class="success-panel"><p class="eyebrow">REQUEST RECEIVED</p><h2>Thank you — your campaign request is in.</h2><p>Your reference is <strong>DC-${Number(result.campaign_number)}</strong> and the current guide price is <strong>${money(result.total)}</strong>.</p><p>We will review the delivery area and dates, then contact you before anything is confirmed or charged.</p><a class="button" href="account.html">View my orders</a></div>`;
-      window.scrollTo({top:document.querySelector('#main').offsetTop,behavior:'smooth'});
-    }catch(error){message.className='form-message form-error';message.textContent=error.message;state.submitting=false;setButtons()}
-  });
+  loadPrices().then(prices=>{renderPrices(prices);state.pricesReady=true;const reorder=storage.get('delivercrew-reorder');if(reorder){restore(reorder);storage.remove('delivercrew-reorder')}else if(new URLSearchParams(location.search).get('payment')==='cancelled'){restore(storage.get('delivercrew-checkout-draft'));message.textContent='Payment was not completed. Your choices are still here. You can return to payment or discuss your order.'}setButtons();}).catch(()=>{document.querySelector('#artwork-options').textContent='Prices could not be loaded. Please refresh the page or contact us.';setButtons()});
+  fetch('/api/payments/config',{cache:'no-store'}).then(response=>response.ok?response.json():null).then(config=>{state.paymentAvailable=config?.available===true;if(state.paymentAvailable)document.querySelector('#payment-help').textContent=config.test?'Test checkout is active. No real payment will be taken.':'Pay securely now, or discuss your order and request a quote without paying. Preferred delivery dates are subject to availability.';setButtons();}).catch(()=>setButtons());
+  form.addEventListener('submit',async event=>{event.preventDefault();if(state.submitting||!state.pricesReady||!form.reportValidity())return;const payment=event.submitter===payButton;if(payment&&!state.paymentAvailable)return;message.className='form-message';message.textContent='';const fields=new FormData(form);const artworkMap={'Supply own artwork':'own_artwork','Canva / AI design':'canva_ai_design','Bespoke design':'bespoke_design'};const includePrint=document.querySelector('#include-print').checked;let dates;try{dates=dateValues(fields)}catch(error){message.className='form-message form-error';message.textContent=error.message;return}const printSpec=includePrint?`Print specification: ${fields.get('print_material')}; ${fields.get('print_sides')}; Lamination: ${fields.get('print_lamination')}; Folding: ${fields.get('print_folding')}`:'';const notes=[dates.description,printSpec,fields.get('notes')||''].filter(Boolean).join('\n\n');if(notes.length>1500){message.className='form-message form-error';message.textContent='Please shorten your notes to allow room for the delivery dates and print specification.';return}const payload={p_first_name:fields.get('first_name'),p_last_name:fields.get('last_name')||null,p_business_name:fields.get('business_name')||null,p_email:fields.get('email'),p_phone:fields.get('phone')||null,p_address:fields.get('address')||null,p_postcode:fields.get('postcode')||null,p_artwork_option:artworkMap[fields.get('artwork_label')],p_print_product:includePrint?fields.get('print_product'):null,p_print_quantity:includePrint?Number(fields.get('print_quantity')):null,p_distribution_type:fields.get('distribution_type'),p_distribution_quantity:Number(fields.get('distribution_quantity')),p_delivery_area:fields.get('delivery_area'),p_delivery_postcodes:fields.get('delivery_postcodes')||null,p_preferred_start_date:dates.start,p_preferred_end_date:dates.end,p_notes:notes,p_terms_accepted:fields.get('terms_accepted')==='on',p_website:fields.get('website')||null};state.submitting=true;setButtons();message.textContent=payment?'Opening secure payment…':'Sending your request…';try{if(payment){const fingerprint=JSON.stringify(payload);let attempt=checkoutAttempt;if(!attempt||attempt.fingerprint!==fingerprint)attempt={id:crypto.randomUUID(),fingerprint};checkoutAttempt=attempt;storage.set('delivercrew-checkout-attempt',attempt);storage.set('delivercrew-checkout-draft',{...Object.fromEntries(fields),include_print:includePrint});const response=await fetch('/api/payments/checkout',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({request_id:attempt.id,payload})});const result=await response.json().catch(()=>null);if(!response.ok){if(result?.code==='session_expired'){checkoutAttempt=null;storage.remove('delivercrew-checkout-attempt')}throw new Error(result?.error||'Secure payment could not be opened. Please try again.')}if(result?.url){const target=new URL(result.url);if(target.origin!=='https://checkout.stripe.com')throw new Error('Secure payment returned an unexpected address.');location.assign(target.href);return}if(result?.return_url?.startsWith('/payment.html?session_id=')){location.assign(result.return_url);return}throw new Error('Secure payment could not be opened. Please try again.')}const [result]=await api('submit_campaign',payload);form.innerHTML=`<div class="success-panel"><p class="eyebrow">REQUEST RECEIVED</p><h2>Thank you — your campaign request is in.</h2><p>Your reference is <strong>DC-${Number(result.campaign_number)}</strong> and the current guide price is <strong>${money(result.total)}</strong>.</p><p>We will review the delivery area and dates, then contact you before anything is confirmed or charged.</p><a class="button" href="account.html">View my orders</a></div>`;window.scrollTo({top:document.querySelector('#main').offsetTop,behavior:'smooth'});}catch(error){message.className='form-message form-error';message.textContent=error.message;state.submitting=false;setButtons()}});
 })();
