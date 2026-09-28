@@ -7,3 +7,5 @@
 .rich-content{max-width:850px;color:#d5ece7}.rich-content p{margin:0 0 1.1em;white-space:normal}.rich-content h3{color:#fff;margin:1.4em 0 .5em}.rich-content ul{padding-left:1.5em;margin:0 0 1.3em}.rich-content li{padding:.18em 0}.rich-content li::marker{color:var(--aqua)}.date-options{display:grid;gap:12px}.date-fields{margin-top:14px}.submit-actions{display:flex;flex-wrap:wrap;gap:12px}.submit-actions .outline{background:transparent;color:#fff;border:1px solid #69b7b9}.submit-actions button{font:inherit;cursor:pointer}.submit-actions button:disabled{cursor:not-allowed}.account-card{background:#0b4c53;border:1px solid #69c4bd50;border-radius:12px;padding:24px;margin:18px 0}.account-card h3{margin-top:0}
 
 .price-explainer{grid-template-columns:1fr;gap:8px}
+
+[hidden]{display:none!important}
