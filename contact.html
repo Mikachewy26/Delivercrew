@@ -7,6 +7,7 @@
 <title>Contact us | DeliverCrew Distribution</title>
 <link rel="stylesheet" href="assets/site.css">
 <script defer src="assets/site.js"></script>
+<script defer src="assets/contact.js"></script>
 </head>
 <body>
 <a class="visually-hidden" href="#main">Skip to content</a>
@@ -19,6 +20,25 @@
 <div class="actions"><a class="button" href="mailto:info@delivercrewdistribution.co.uk">Email DeliverCrew</a><a class="button outline" href="booking.html">Book a campaign</a></div>
 <p>Email us at <a href="mailto:info@delivercrewdistribution.co.uk">info@<wbr>delivercrewdistribution.co.uk</a>. The email button opens your email app.</p>
 </div></section>
+<section class="section" id="enquiry"><div class="wrap booking-layout">
+<h2>Send us a message</h2><p>Fields marked * are required.</p>
+<form id="contact-form" class="campaign-form">
+<div class="form-panel form-submit-panel"><div class="form-grid two">
+<label>First name *<input name="first_name" autocomplete="given-name" maxlength="80" required></label>
+<label>Last name *<input name="last_name" autocomplete="family-name" maxlength="80" required></label>
+<label>Email *<input name="email" type="email" autocomplete="email" maxlength="254" required></label>
+<label>Phone<input name="phone" type="tel" autocomplete="tel" maxlength="40"></label>
+<label>Company name<input name="company_name" autocomplete="organization" maxlength="150"></label>
+<label>Company location<input name="company_location" autocomplete="address-level2" maxlength="150"></label>
+<label class="full">Your message *<textarea name="message" rows="6" maxlength="3000" required></textarea></label>
+</div>
+<label class="check-row"><input name="consent" type="checkbox" required> I agree to be contacted regarding my enquiry. *</label>
+<p class="form-help">We use the details you provide to respond to your enquiry. Your message is stored securely for the DeliverCrew team to review.</p>
+<label class="website-field" aria-hidden="true">Leave this blank<input name="website" tabindex="-1" autocomplete="off"></label>
+<button class="button" type="submit" id="send-enquiry">Send enquiry</button>
+<p id="enquiry-status" class="form-message" role="status" aria-live="polite"></p>
+<noscript>Please enable JavaScript to send this form, or email info@delivercrewdistribution.co.uk.</noscript>
+</div></form></div></section>
 <section class="section"><div class="wrap split">
 <div><p class="eyebrow">HOW CAN WE HELP?</p><h2>One conversation. Plenty of possibilities.</h2>
 <p>Get in touch about a single service or a project that brings several together:</p>
