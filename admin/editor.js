@@ -9,7 +9,7 @@ const sectionNames = {
   branding: 'Branding and signage', branding_extras: 'Branding page sections',
   websites: 'Websites and marketing', websites_extras: 'Websites page sections',
   gps: 'GPS tracking', gps_extras: 'GPS page sections',
-  shared: 'Contact details and footer', pricing: 'Prices shown on the website'
+  contact: 'Contact us page', shared: 'Contact details and footer', pricing: 'Prices shown on the website'
 };
 let content = null;
 let savedVersion = null;

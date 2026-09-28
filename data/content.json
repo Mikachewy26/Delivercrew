@@ -132,5 +132,18 @@
     "title": "Brands. Print. Deliver.",
     "intro": "From design and print to GPS-tracked delivery, we make sure your message reaches the right homes, in the right areas.",
     "detail": "Whether you already have leaflets ready to hit the streets or need help building your campaign from the ground up, DeliverCrew makes it simple.\n\nChoose exactly the support you need — from eye-catching design and professional printing to targeted distribution and GPS-tracked delivery. We can manage the entire process or simply take care of the final mile.\n\nTell us about your business, your target customers and the areas you want to reach. We’ll help turn your ideas into a professionally delivered campaign that puts your brand directly through the doors of potential customers across your chosen neighbourhoods.\n\nYou create the opportunity. We help you deliver it."
+  },
+  "contact": {
+    "eyebrow": "CONTACT DELIVERCREW",
+    "title": "Let’s talk about your next project.",
+    "intro": "Have a question, need help planning a campaign or looking for something bespoke? Tell us what you have in mind and we’ll help you work out the next step.",
+    "form_title": "Send us a message",
+    "help_eyebrow": "HOW CAN WE HELP?",
+    "help_title": "One conversation. Plenty of possibilities.",
+    "help_intro": "Get in touch about a single service or a project that brings several together:",
+    "enquiry_title": "What to include in your enquiry",
+    "enquiry_detail": "Let us know your name, business and the service you need. For distribution, include your preferred areas or postcodes, approximate leaflet quantity and any dates you have in mind.",
+    "cta_title": "Ready to plan your campaign?",
+    "cta_detail": "Choose your artwork, printing and distribution options online, select your delivery areas and see a guide price before sending your campaign request."
   }
 }
