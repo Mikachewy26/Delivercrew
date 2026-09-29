@@ -4,8 +4,17 @@
 /assets/booking.js
   Cache-Control: no-store, no-cache, must-revalidate
 
+/assets/artwork-upload.js
+  Cache-Control: no-store, no-cache, must-revalidate
+
+/assets/booking-checkout-validation.js
+  Cache-Control: no-store, no-cache, must-revalidate
+
 /assets/area-map.js
   Cache-Control: no-store, no-cache, must-revalidate
 
 /api/payments/*
+  Cache-Control: no-store, no-cache, must-revalidate
+
+/api/artwork/*
   Cache-Control: no-store, no-cache, must-revalidate
