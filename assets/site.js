@@ -32,3 +32,23 @@ function captureAdditionalServiceRequests(){
 addLegalFooterLinks();
 captureAdditionalServiceRequests();
 (async()=>{try{const response=await fetch('https://nbwbqosofzwnxhzpsicj.supabase.co/rest/v1/site_content?id=eq.main&select=content',{cache:'no-store',headers:{apikey:'sb_publishable_hXg97V6GpccCRV3zkuQvRQ_fT4UD4Wg'}});if(!response.ok)throw Error('Site content unavailable');const rows=await response.json();const data=rows?.[0]?.content;if(!data)throw Error('Site content unavailable');for(const el of document.querySelectorAll('[data-content]')){const [page,key]=el.dataset.content.split('.');const value=data?.[page]?.[key];if(typeof value==='string')renderContent(el,value)}const email=data?.shared?.email?.trim(),phone=data?.shared?.phone?.trim(),contact=document.querySelector('#contact-links'),status=document.querySelector('#contact-status');if(contact&&(email||phone)){if(status)status.hidden=true;contact.hidden=false;if(email){const a=document.createElement('a');a.href='mailto:'+email;a.textContent=email;contact.append(a)}if(phone){const a=document.createElement('a');a.href='tel:'+phone.replace(/[^+\d]/g,'');a.textContent=phone;contact.append(a)}}}catch(e){/* Embedded copy remains available for local preview. */}})();
+
+/* Accessible compact navigation for mobile and tablet screens. */
+(function setupHeaderMenu(){
+  for(const header of document.querySelectorAll('.site-header')){
+    const nav=header.querySelector('.nav'),inner=header.querySelector('.header-inner');
+    if(!nav||!inner||header.querySelector('.header-menu-toggle'))continue;
+    const button=document.createElement('button');
+    button.type='button';button.className='header-menu-toggle';button.textContent='Menu';
+    button.setAttribute('aria-label','Toggle navigation menu');
+    button.setAttribute('aria-expanded','false');
+    const id='delivercrew-main-navigation';
+    nav.id=nav.id||id;button.setAttribute('aria-controls',nav.id);
+    inner.insertBefore(button,nav);
+    const close=()=>{nav.classList.remove('is-open');button.setAttribute('aria-expanded','false')};
+    button.addEventListener('click',()=>{const open=nav.classList.toggle('is-open');button.setAttribute('aria-expanded',String(open))});
+    nav.addEventListener('click',event=>{if(event.target.closest('a'))close()});
+    document.addEventListener('keydown',event=>{if(event.key==='Escape')close()});
+    document.addEventListener('click',event=>{if(!header.contains(event.target))close()});
+  }
+})();
