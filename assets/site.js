@@ -1,3 +1,13 @@
+
+/* Keep the Apps & Software navigation item consistent across existing pages. */
+(function addAppsNavigation(){
+  for(const nav of document.querySelectorAll('.site-header .nav')){
+    if(nav.querySelector('a[href="apps.html"]'))continue;
+    const link=document.createElement('a');link.href='apps.html';link.textContent='Apps & software';
+    const next=nav.querySelector('a[href="contact.html"]');
+    if(next)nav.insertBefore(link,next);else nav.append(link);
+  }
+})();
 function renderContent(el,value){
   if(el.dataset.format!=='blocks'){el.textContent=value;return}
   el.replaceChildren();let list=null;
